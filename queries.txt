@@ -1,0 +1,9 @@
+SELECT SubjectID, Age FROM Subject WHERE (Age>70) and (Age IS NOT NULL);
+SELECT SubjectID, BMI FROM Subject WHERE (Sex='F') and (BMI>18.5 and BMI<24.9) ORDER BY BMI DESC;
+SELECT VisitID FROM Sample WHERE SubjectID='ZNQOVZV';
+SELECT DISTINCT Subject.SubjectID FROM Subject, Sample WHERE (Subject.SubjectID = Sample.SubjectID) and (Subject.Insulin_classification='IR') and Sample.OmicsType LIKE '%metabolomics%';
+SELECT DISTINCT KEGG FROM Annotations WHERE PeakID in ('nHILIC_121.0505_3.5','nHILIC_130.0872_6.3','nHILIC_133.0506_2.3','nHILIC_133.0506_4.4');
+SELECT MIN(Age), MAX(Age),  AVG(Age) FROM Subject;
+SELECT Pathway, COUNT(Pathway) FROM Annotations GROUP BY Pathway HAVING COUNT(Pathway)>10 ORDER BY COUNT(Pathway) DESC;
+SELECT MAX(Abundance) FROM BiomoleculeMeasurement WHERE BiomoleculeID = 'A1BG' and SubjectID = 'ZOZOW1T';
+SELECT Age, BMI FROM Subject WHERE (Age is not NULL) and (BMI is not NULL);

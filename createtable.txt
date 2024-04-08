@@ -1,0 +1,47 @@
+CREATE TABLE Subject (
+SubjectID VARCHAR(7) NOT NULL,
+Race CHAR(1),
+Sex CHAR(1),
+Age DECIMAL,
+BMI DECIMAL,
+SSPG DECIMAL,
+Insulin_classification CHAR(2),
+PRIMARY KEY (SubjectID)
+);
+
+CREATE TABLE Sample (
+SubjectID VARCHAR(15) NOT NULL,
+VisitID VARCHAR(10) NOT NULL,
+OmicsType VARCHAR(100) NOT NULL,
+PRIMARY KEY (SubjectID, VisitID),
+FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID)
+);
+
+CREATE TABLE Biomolecule (
+BiomoleculeID VARCHAR(255) NOT NULL,
+OmicsType VARCHAR(100) NOT NULL,
+PRIMARY KEY (BiomoleculeID) 
+);
+
+CREATE TABLE BiomoleculeMeasurement (
+BiomoleculeID VARCHAR(255) NOT NULL,
+SubjectID VARCHAR(15) NOT NULL,
+VisitID VARCHAR(10) NOT NULL,
+Abundance DECIMAL,
+PRIMARY KEY (BiomoleculeID, SubjectID, VisitID),
+FOREIGN KEY(BiomoleculeID) REFERENCES Biomolecule(BiomoleculeID),
+FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID),
+FOREIGN KEY (VisitID) REFERENCES Sample(VisitID)
+);
+
+CREATE TABLE Annotations (
+PeakID VARCHAR(255) NOT NULL,
+MetaboliteName VARCHAR(255) NOT NULL,
+KEGG VARCHAR(255),
+hmbdID VARCHAR(255),
+ChemicalClass VARCHAR(255),
+Pathway VARCHAR(255),
+PRIMARY KEY(PeakID, MetaboliteName),
+FOREIGN KEY(PeakID) REFERENCES Biomolecule(BiomoleculeID)
+);
+
